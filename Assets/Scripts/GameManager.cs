@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject block;
     public float maxX;
     public Transform spawnPoint;
-    public float spawnRate;
+    public float spawnRate = 5f; // Adjust this value to control the spawn rate
 
     bool gameStarted = false;
 
