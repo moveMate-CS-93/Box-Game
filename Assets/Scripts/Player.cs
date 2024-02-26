@@ -2,40 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Mediapipe.Unity.Sample.HandTracking;
 
 public class Player : MonoBehaviour
 {
     public float moveSpeed;
     Rigidbody2D rb;
-    HandTrackingSolution handTracking;
-
+    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        handTracking = FindObjectOfType<HandTrackingSolution>(); // Find the HandTrackingSolution component in the scene
     }
 
+    // Update is called once per frame
     void Update()
     {
-        // Use the boolean values from HandTrackingSolution to control the player movement
-        if (handTracking.LeftTouching)
+        if(Input.GetMouseButton(0))
         {
-            rb.AddForce(Vector2.left * moveSpeed);
+            Vector3 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if(touchPos.x < 0)
+            {
+                rb.AddForce(Vector2.left * moveSpeed);
+            }
+            else
+            {
+                rb.AddForce(Vector2.right * moveSpeed);
+            }
         }
-        else if (handTracking.RightTouching)
-        {
-            rb.AddForce(Vector2.right * moveSpeed);
-        }
-        else
-        {
+        else{
             rb.velocity = Vector2.zero;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Block")
+        if(collision.gameObject.tag == "Block")
         {
             SceneManager.LoadScene("Game");
         }
