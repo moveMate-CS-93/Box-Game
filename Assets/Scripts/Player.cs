@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Block")
         {
-            SceneManager.LoadScene("Hand Tracking");
+            SceneManager.LoadScene("Game");
         }
     }
 }
