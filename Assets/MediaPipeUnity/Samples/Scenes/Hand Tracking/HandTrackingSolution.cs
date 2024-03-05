@@ -92,58 +92,57 @@ protected override void OnStartRun()
       _handRectsFromPalmDetectionsAnnotationController.DrawLater(value);
     }
 
-    public bool LeftTouching;
-    public bool RightTouching;
+public bool LeftTouching;
+public bool RightTouching;
 
-    private void OnHandLandmarksOutput(object stream, OutputStream<List<NormalizedLandmarkList>>.OutputEventArgs eventArgs)
+private void OnHandLandmarksOutput(object stream, OutputStream<List<NormalizedLandmarkList>>.OutputEventArgs eventArgs)
+{
+    var packet = eventArgs.packet;
+    var value = packet == null ? default : packet.Get(NormalizedLandmarkList.Parser);
+
+    if (value != null && value.Count > 0 && value[0].Landmark.Count >= 21)
     {
-        var packet = eventArgs.packet;
-        var value = packet == null ? default : packet.Get(NormalizedLandmarkList.Parser);
-
-        if (value != null && value.Count > 0 && value[0].Landmark.Count >= 21)
+        // Log the landmarks for debugging
+        for (int i = 0; i < value[0].Landmark.Count; i++)
         {
-            // Log the landmarks for debugging
-            for (int i = 0; i < value[0].Landmark.Count; i++)
-            {
-                var landmark = value[0].Landmark[i];
-                Debug.Log($"Landmark {i}: ({landmark.X}, {landmark.Y}, {landmark.Z})");
-            }
-
-            // Thumb tip is at index 4
-            Vector3 thumbTipPosition = new Vector3(value[0].Landmark[4].X, value[0].Landmark[4].Y, value[0].Landmark[4].Z);
-
-            // Index finger tip is at index 8
-            Vector3 indexTipPosition = new Vector3(value[0].Landmark[8].X, value[0].Landmark[8].Y, value[0].Landmark[8].Z);
-
-            // Middle finger tip is at index 12
-            Vector3 middleTipPosition = new Vector3(value[0].Landmark[12].X, value[0].Landmark[12].Y, value[0].Landmark[12].Z);
-
-            // Check if thumb tip touches index finger tip
-            if (Vector3.Distance(thumbTipPosition, indexTipPosition) < 0.05f)
-            {
-                LeftTouching = true;
-                Debug.Log("Left is touching");
-            }
-            else
-            {
-                LeftTouching = false;
-            }
-
-            // Check if thumb tip touches middle finger tip
-            if (Vector3.Distance(thumbTipPosition, middleTipPosition) < 0.05f)
-            {
-                RightTouching = true;
-                Debug.Log("Right is touching");
-            }
-            else
-            {
-                RightTouching = false;
-            }
+            var landmark = value[0].Landmark[i];
+            Debug.Log($"Landmark {i}: ({landmark.X}, {landmark.Y}, {landmark.Z})");
         }
 
-        _handLandmarksAnnotationController.DrawLater(value);
+        // Thumb tip is at index 4
+        Vector3 thumbTipPosition = new Vector3(value[0].Landmark[4].X, value[0].Landmark[4].Y, value[0].Landmark[4].Z);
+
+        // Index finger tip is at index 8
+        Vector3 indexTipPosition = new Vector3(value[0].Landmark[8].X, value[0].Landmark[8].Y, value[0].Landmark[8].Z);
+
+        // Middle finger tip is at index 12
+        Vector3 middleTipPosition = new Vector3(value[0].Landmark[12].X, value[0].Landmark[12].Y, value[0].Landmark[12].Z);
+
+        // Check if thumb tip touches index finger tip
+        if (Vector3.Distance(thumbTipPosition, indexTipPosition) < 0.05f)
+        {
+            LeftTouching = true;
+            Debug.Log("Left is touching");
+        }
+        else
+        {
+            LeftTouching = false;
+        }
+
+        // Check if thumb tip touches middle finger tip
+        if (Vector3.Distance(thumbTipPosition, middleTipPosition) < 0.05f)
+        {
+            RightTouching = true;
+            Debug.Log("Right is touching");
+        }
+        else
+        {
+            RightTouching = false;
+        }
     }
 
+    _handLandmarksAnnotationController.DrawLater(value);
+}
 
     private void OnHandRectsFromLandmarksOutput(object stream, OutputStream<List<NormalizedRect>>.OutputEventArgs eventArgs)
     {
