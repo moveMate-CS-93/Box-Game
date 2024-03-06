@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI; // Import the Unity UI namespace
 
 public class GameManager : MonoBehaviour
 {
@@ -13,19 +13,18 @@ public class GameManager : MonoBehaviour
     bool gameStarted = false;
 
     public GameObject tapText;
-    public TextMeshProUGUI scoreText;
+    public Text scoreText; // Change TextMeshProUGUI to Text
 
     int score = 0;
-
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && !gameStarted)
+        if (Input.GetMouseButtonDown(0) && !gameStarted)
         {
             StartSpawning();
             gameStarted = true;
-            tapText.SetActive(false);   
+            tapText.SetActive(false);
         }
     }
 
@@ -41,9 +40,8 @@ public class GameManager : MonoBehaviour
 
         Instantiate(block, spawnPos, Quaternion.identity);
 
-        score++;   
+        score++;
 
         scoreText.text = score.ToString();
-
     }
 }
