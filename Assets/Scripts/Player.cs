@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mediapipe.Unity.Sample.HandTracking;
@@ -9,11 +7,13 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     Rigidbody2D rb;
     HandTrackingSolution handTracking;
+    GameManager gameManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         handTracking = FindObjectOfType<HandTrackingSolution>(); // Find the HandTrackingSolution component in the scene
+        gameManager = FindObjectOfType<GameManager>(); // Find the GameManager component in the scene
     }
 
     void Update()
@@ -35,9 +35,9 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Block")
+        if (collision.gameObject.CompareTag("Block"))
         {
-            SceneManager.LoadScene("Hand Tracking");
+            gameManager.GameOver(); // Call the GameManager's GameOver function
         }
     }
 }

@@ -10,48 +10,58 @@ public class GameManager : MonoBehaviour
 
     public GameObject getReadyImage;
     public GameObject playButton;
-    public GameObject tapText;
+    // public GameObject tapText;
     public Text scoreText;
+    public GameObject gameOverPanel;
 
     private int score = 0;
     private bool gameStarted = false;
 
     void Start()
     {
-        // Show the "Get Ready" image and play button when the game starts
+        ShowStartScreen();
+    }
+
+    void ShowStartScreen()
+    {
         getReadyImage.SetActive(true);
         playButton.SetActive(true);
-        tapText.SetActive(true);
-        scoreText.gameObject.SetActive(false);
+        // tapText.SetActive(true);
+        scoreText.gameObject.SetActive(true);
+        gameOverPanel.SetActive(false);
+        score = 0;
     }
 
     public void StartGame()
     {
-        // Start spawning blocks and hide the UI elements
         StartSpawning();
         getReadyImage.SetActive(false);
         playButton.SetActive(false);
-        tapText.SetActive(false);
+        gameOverPanel.SetActive(false);
+        score = 0; // Reset score when starting a new game
+        scoreText.text = score.ToString(); // Update the score text
         scoreText.gameObject.SetActive(true);
         gameStarted = true;
     }
 
     void Update()
     {
-        // Check for mouse click to start the game if it hasn't started yet
         if (Input.GetMouseButtonDown(0) && !gameStarted)
         {
             StartGame();
         }
     }
 
-    private void StartSpawning()
+    void StartSpawning()
     {
-        InvokeRepeating("SpawnBlock", 0.5f, spawnRate);
+        InvokeRepeating("SpawnBlock", 1f, spawnRate);
     }
 
-    private void SpawnBlock()
+    void SpawnBlock()
     {
+        if (!gameStarted)
+            return;
+
         Vector3 spawnPos = spawnPoint.position;
         spawnPos.x = Random.Range(-maxX, maxX);
 
@@ -59,5 +69,20 @@ public class GameManager : MonoBehaviour
 
         score++;
         scoreText.text = score.ToString();
+    }
+
+    public void GameOver()
+    {
+        CancelInvoke("SpawnBlock"); // Stop spawning blocks
+        gameOverPanel.SetActive(true);
+        playButton.SetActive(true);
+        Text gameOverScoreText = gameOverPanel.GetComponentInChildren<Text>();
+        gameOverScoreText.text = "Score: " + score.ToString();
+        gameStarted = false;
+    }
+
+    public void RestartGame()
+    {
+        StartGame();
     }
 }
