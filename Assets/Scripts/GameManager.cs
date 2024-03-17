@@ -1,30 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Import the Unity UI namespace
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject block;
     public float maxX;
     public Transform spawnPoint;
-    public float spawnRate = 5f; // Adjust this value to control the spawn rate
+    public float spawnRate = 5f;
 
-    bool gameStarted = false;
-
+    public GameObject getReadyImage;
+    public GameObject playButton;
     public GameObject tapText;
-    public Text scoreText; // Change TextMeshProUGUI to Text
+    public Text scoreText;
 
-    int score = 0;
+    private int score = 0;
+    private bool gameStarted = false;
 
-    // Update is called once per frame
+    void Start()
+    {
+        // Show the "Get Ready" image and play button when the game starts
+        getReadyImage.SetActive(true);
+        playButton.SetActive(true);
+        tapText.SetActive(true);
+        scoreText.gameObject.SetActive(false);
+    }
+
+    public void StartGame()
+    {
+        // Start spawning blocks and hide the UI elements
+        StartSpawning();
+        getReadyImage.SetActive(false);
+        playButton.SetActive(false);
+        tapText.SetActive(false);
+        scoreText.gameObject.SetActive(true);
+        gameStarted = true;
+    }
+
     void Update()
     {
+        // Check for mouse click to start the game if it hasn't started yet
         if (Input.GetMouseButtonDown(0) && !gameStarted)
         {
-            StartSpawning();
-            gameStarted = true;
-            tapText.SetActive(false);
+            StartGame();
         }
     }
 
@@ -41,7 +58,6 @@ public class GameManager : MonoBehaviour
         Instantiate(block, spawnPos, Quaternion.identity);
 
         score++;
-
         scoreText.text = score.ToString();
     }
 }
