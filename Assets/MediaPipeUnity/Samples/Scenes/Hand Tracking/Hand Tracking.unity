@@ -291,7 +291,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 277010467}
-        m_TargetAssemblyTypeName: piggyGameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
@@ -465,6 +465,7 @@ MonoBehaviour:
   playButton: {fileID: 102836925}
   scoreText: {fileID: 1577166005}
   gameOverPanel: {fileID: 978430379}
+  timerManager: {fileID: 1015695946}
 --- !u!4 &277010468
 Transform:
   m_ObjectHideFlags: 0
@@ -1567,6 +1568,7 @@ GameObject:
   - component: {fileID: 1015695943}
   - component: {fileID: 1015695945}
   - component: {fileID: 1015695944}
+  - component: {fileID: 1015695946}
   m_Layer: 5
   m_Name: piggy_timer
   m_TagString: Untagged
@@ -1635,6 +1637,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015695942}
   m_CullTransparentMesh: 1
+--- !u!114 &1015695946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015695942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa2d561bf33244b44928ebead593159d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 1015695944}
 --- !u!1 &1223870913
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,9 +10,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject getReadyImage;
     public GameObject playButton;
-    // public GameObject tapText;
     public Text scoreText;
     public GameObject gameOverPanel;
+    public piggy_TimerManager timerManager; // Reference to the TimerManager script
 
     private int score = 0;
     private bool gameStarted = false;
@@ -26,10 +26,10 @@ public class GameManager : MonoBehaviour
     {
         getReadyImage.SetActive(true);
         playButton.SetActive(true);
-        // tapText.SetActive(true);
         scoreText.gameObject.SetActive(true);
         gameOverPanel.SetActive(false);
         score = 0;
+        timerManager.ShowStartScreen(); // Update the timer when showing start screen
     }
 
     public void StartGame()
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString(); // Update the score text
         scoreText.gameObject.SetActive(true);
         gameStarted = true;
+        timerManager.StartGame(); // Start the timer when the game starts
     }
 
     void Update()
@@ -79,6 +80,9 @@ public class GameManager : MonoBehaviour
         Text gameOverScoreText = gameOverPanel.GetComponentInChildren<Text>();
         gameOverScoreText.text = "Score: " + score.ToString();
         gameStarted = false;
+
+        // Stop the timer when the game is over
+        timerManager.StopTimer();
     }
 
     public void RestartGame()
