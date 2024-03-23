@@ -7,12 +7,8 @@ public class piggy_TimerManager : MonoBehaviour
 
     [SerializeField] private Text timerText;
     private float elapsedTime;
-<<<<<<< HEAD
     private bool isTimerRunning = false;
-=======
-    private bool isGameOver = false;
-    private bool gameStarted = false; // Variable to track if the game has started
->>>>>>> parent of 52f98fb (fixed the piggy into the frame, and reduce the number of box falls)
+    private bool gameStarted;
 
     private void Awake()
     {
@@ -29,11 +25,7 @@ public class piggy_TimerManager : MonoBehaviour
 
     void Update()
     {
-<<<<<<< HEAD
         if (isTimerRunning)
-=======
-        if (gameStarted && !isGameOver) // Only update the timer when the game has started and not over
->>>>>>> parent of 52f98fb (fixed the piggy into the frame, and reduce the number of box falls)
         {
             elapsedTime += Time.deltaTime;
             UpdateTimerText();
@@ -43,7 +35,6 @@ public class piggy_TimerManager : MonoBehaviour
     public void RestartTimer()
     {
         elapsedTime = 0f;
-<<<<<<< HEAD
         isTimerRunning = false;
         UpdateTimerText();
     }
@@ -56,20 +47,12 @@ public class piggy_TimerManager : MonoBehaviour
     public void ResumeTimer()
     {
         isTimerRunning = true;
-=======
-        isGameOver = false;
-        UpdateTimerText(); // Update the timer text to keep it at 00:00
->>>>>>> parent of 52f98fb (fixed the piggy into the frame, and reduce the number of box falls)
     }
 
     public void StopTimer()
     {
-<<<<<<< HEAD
         isTimerRunning = false;
         UpdateTimerText();
-=======
-        isGameOver = true;
->>>>>>> parent of 52f98fb (fixed the piggy into the frame, and reduce the number of box falls)
     }
 
     public void StartGame()
