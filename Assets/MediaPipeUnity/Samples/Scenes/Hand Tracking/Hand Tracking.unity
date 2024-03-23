@@ -544,7 +544,7 @@ MonoBehaviour:
   playButton: {fileID: 102836925}
   scoreText: {fileID: 1577166005}
   gameOverPanel: {fileID: 978430379}
-  timerManager: {fileID: 0}
+  timerManager: {fileID: 1015695946}
 --- !u!4 &277010468
 Transform:
   m_ObjectHideFlags: 0
@@ -1326,11 +1326,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8571076844135231236, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 42.281982
+      value: 42.281998
       objectReference: {fileID: 0}
     - target: {fileID: 8571076844135231236, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -52.376953
+      value: -52.377003
       objectReference: {fileID: 0}
     - target: {fileID: 8571076844286272849, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
       propertyPath: m_AnchorMax.y
