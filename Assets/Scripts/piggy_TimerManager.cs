@@ -7,7 +7,7 @@ public class piggy_TimerManager : MonoBehaviour
 
     [SerializeField] private Text timerText;
     private float elapsedTime;
-    private bool isGameOver = false;
+    private bool isTimerRunning = false;
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class piggy_TimerManager : MonoBehaviour
 
     void Update()
     {
-        if (!isGameOver)
+        if (isTimerRunning)
         {
             elapsedTime += Time.deltaTime;
             int minutes = Mathf.FloorToInt(elapsedTime / 60);
@@ -36,23 +36,23 @@ public class piggy_TimerManager : MonoBehaviour
     public void RestartTimer()
     {
         elapsedTime = 0f;
-        isGameOver = false;
+        isTimerRunning = false;
         UpdateTimerText();
     }
 
     public void PauseTimer()
     {
-        isGameOver = true;
+        isTimerRunning = false;
     }
 
     public void ResumeTimer()
     {
-        isGameOver = false;
+        isTimerRunning = true;
     }
 
     public void StopTimer()
     {
-        isGameOver = true;
+        isTimerRunning = false;
         UpdateTimerText();
     }
 
