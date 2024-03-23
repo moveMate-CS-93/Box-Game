@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
         scoreText.gameObject.SetActive(true);
         gameOverPanel.SetActive(false);
         score = 0;
-        timerManager.ShowStartScreen(); // Update the timer when showing start screen
+        timerManager.UpdateTimerText();
+        timerManager.PauseTimer(); // Pause the timer initially
     }
 
     public void StartGame()
@@ -42,7 +43,8 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString(); // Update the score text
         scoreText.gameObject.SetActive(true);
         gameStarted = true;
-        timerManager.StartGame(); // Start the timer when the game starts
+        timerManager.RestartTimer(); // Restart the timer when the game starts
+        timerManager.ResumeTimer(); // Resume the timer when the game starts
     }
 
     void Update()
@@ -82,11 +84,17 @@ public class GameManager : MonoBehaviour
         gameStarted = false;
 
         // Stop the timer when the game is over
-        timerManager.StopTimer();
+        timerManager.PauseTimer();
     }
 
     public void RestartGame()
     {
         StartGame();
+    }
+
+    public void OnPlayButtonClicked()
+    {
+        // Reset the timer when the play button is clicked
+        timerManager.RestartTimer();
     }
 }

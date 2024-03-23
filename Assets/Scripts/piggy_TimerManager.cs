@@ -8,7 +8,6 @@ public class piggy_TimerManager : MonoBehaviour
     [SerializeField] private Text timerText;
     private float elapsedTime;
     private bool isGameOver = false;
-    private bool gameStarted = false; // Variable to track if the game has started
 
     private void Awake()
     {
@@ -25,10 +24,12 @@ public class piggy_TimerManager : MonoBehaviour
 
     void Update()
     {
-        if (gameStarted && !isGameOver) // Only update the timer when the game has started and not over
+        if (!isGameOver)
         {
             elapsedTime += Time.deltaTime;
-            UpdateTimerText();
+            int minutes = Mathf.FloorToInt(elapsedTime / 60);
+            int seconds = Mathf.FloorToInt(elapsedTime % 60);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
     }
 
@@ -36,26 +37,26 @@ public class piggy_TimerManager : MonoBehaviour
     {
         elapsedTime = 0f;
         isGameOver = false;
-        UpdateTimerText(); // Update the timer text to keep it at 00:00
+        UpdateTimerText();
+    }
+
+    public void PauseTimer()
+    {
+        isGameOver = true;
+    }
+
+    public void ResumeTimer()
+    {
+        isGameOver = false;
     }
 
     public void StopTimer()
     {
         isGameOver = true;
+        UpdateTimerText();
     }
 
-    public void StartGame()
-    {
-        gameStarted = true; // Set game started
-    }
-
-    public void ShowStartScreen()
-    {
-        gameStarted = false; // Set game not started
-        UpdateTimerText(); // Update the timer text to keep it at 00:00
-    }
-
-    private void UpdateTimerText()
+    public void UpdateTimerText()
     {
         int minutes = Mathf.FloorToInt(elapsedTime / 60);
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
