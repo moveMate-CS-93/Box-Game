@@ -29,7 +29,11 @@ public class GameManager : MonoBehaviour
         scoreText.gameObject.SetActive(true);
         gameOverPanel.SetActive(false);
         score = 0;
+<<<<<<< HEAD
         timerManager.RestartTimer();
+=======
+        timerManager.ShowStartScreen(); // Update the timer when showing start screen
+>>>>>>> parent of 52f98fb (fixed the piggy into the frame, and reduce the number of box falls)
     }
 
     public void StartGame()
@@ -42,7 +46,11 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString(); // Update the score text
         scoreText.gameObject.SetActive(true);
         gameStarted = true;
+<<<<<<< HEAD
         timerManager.ResumeTimer(); // Resume the timer when the game starts
+=======
+        timerManager.StartGame(); // Start the timer when the game starts
+>>>>>>> parent of 52f98fb (fixed the piggy into the frame, and reduce the number of box falls)
     }
 
     void Update()
@@ -81,17 +89,25 @@ public class GameManager : MonoBehaviour
         gameOverScoreText.text = "Score: " + score.ToString();
         gameStarted = false;
 
+<<<<<<< HEAD
         // Pause the timer when the game is over
         timerManager.PauseTimer();
+=======
+        // Stop the timer when the game is over
+        timerManager.StopTimer();
+>>>>>>> parent of 52f98fb (fixed the piggy into the frame, and reduce the number of box falls)
     }
 
     public void RestartGame()
     {
         ShowStartScreen();
     }
+<<<<<<< HEAD
 
     public void OnPlayButtonClicked()
     {
         StartGame();
     }
+=======
+>>>>>>> parent of 52f98fb (fixed the piggy into the frame, and reduce the number of box falls)
 }
