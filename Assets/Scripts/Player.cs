@@ -2,18 +2,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mediapipe.Unity.Sample.HandTracking;
 
-public class Player : MonoBehaviour
+public class BoxPlayer : MonoBehaviour
 {
     public float moveSpeed;
     Rigidbody2D rb;
-    HandTrackingSolution handTracking;
-    GameManager gameManager;
+    BoxHandTrackingSolution handTracking;
+    BoxGameManager gameManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        handTracking = FindObjectOfType<HandTrackingSolution>(); // Find the HandTrackingSolution component in the scene
-        gameManager = FindObjectOfType<GameManager>(); // Find the GameManager component in the scene
+        handTracking = FindObjectOfType<BoxHandTrackingSolution>(); // Find the HandTrackingSolution component in the scene
+        gameManager = FindObjectOfType<BoxGameManager>(); // Find the GameManager component in the scene
     }
 
     void Update()

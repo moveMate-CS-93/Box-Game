@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Mediapipe.Unity.Sample.HandTracking
 {
-  public class HandTrackingSolution : ImageSourceSolution<HandTrackingGraph>
+  public class BoxHandTrackingSolution : ImageSourceSolution<BoxHandTrackingGraph>
   {
     [SerializeField] private DetectionListAnnotationController _palmDetectionsAnnotationController;
     [SerializeField] private NormalizedRectListAnnotationController _handRectsFromPalmDetectionsAnnotationController;
@@ -19,7 +19,7 @@ namespace Mediapipe.Unity.Sample.HandTracking
 
     // public bool IsHandClosed = false;
 
-    public HandTrackingGraph.ModelComplexity modelComplexity
+    public BoxHandTrackingGraph.ModelComplexity modelComplexity
     {
       get => graphRunner.modelComplexity;
       set => graphRunner.modelComplexity = value;
